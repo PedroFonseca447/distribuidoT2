@@ -8,6 +8,7 @@
 public class ProcessoCaixa {
     public static void main(String args[]){
         Scanner in = new Scanner(System.in);
+        //while
         try {
             //Procura pelo servico da calculadora no IP e porta definidos
             Banco c = (Banco) Naming.lookup("rmi://localhost:1099/CalcService");

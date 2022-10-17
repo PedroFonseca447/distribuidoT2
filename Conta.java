@@ -1,4 +1,6 @@
-public class Conta {
+import java.io.Serializable;
+
+public class Conta implements Serializable{
     private int id;
     private double saldo;
     private String nome;
@@ -21,7 +23,7 @@ public class Conta {
     public String getNome(){
         return nome;
     }
-
+    
     public double setSaldoDeposito(Double operador){
         return this.saldo=saldo+operador;
     }

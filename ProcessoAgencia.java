@@ -29,17 +29,21 @@ public class ProcessoAgencia {
           c.cadastraConta(2,200.0 , "pedro");
           c.cadastraConta(3,200.0 , "tiago");
             while (exec) {
+//while no lugar do switch
+// contador para operacoes
+//tradador de erros com o try para evitar que o programa morra
 
-                int key = in.nextInt();
+
+                int key = Integer.parseInt(in.nextLine());
                 switch (key) {
                     case 1:
                     //erro estranho!!
                     System.out.println("Digite o numero da nova conta");
-                    int idC=in.nextInt();
+                    int idC=Integer.parseInt(in.nextLine());
                     System.out.println("Digite o saldo inicial da nova conta");
-                    double saldoC=in.nextDouble();
+                    double saldoC= Double.parseDouble(in.nextLine());
                     System.out.println("Digite o nome vinculado a conta");
-                    String nome = in.toString();
+                    String nome = in.nextLine();
                     c.cadastraConta(idC, saldoC, nome);
                       System.out.printf("Sua conta é\n",c.getConta(idC) );
 
