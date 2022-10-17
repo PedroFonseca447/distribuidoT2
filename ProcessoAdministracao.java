@@ -15,7 +15,7 @@ public class ProcessoAdministracao {
             //Registro do servico em uma porta
             LocateRegistry.createRegistry(1099);
             //Cria o objeto que implementa os metodos que serao servidos
-            Calculadora c = new CalculadoraImp();
+            Banco c = new AdministracaoImp();
             //Coloca na porta registrada o servico da calculadora
             Naming.bind("CalcService", (Remote) c);
             System.out.println("Conexao estabelecida.");

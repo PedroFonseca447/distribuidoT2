@@ -7,7 +7,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 //UnicastRemoteObject permite que a implementacao da classe possa ser estabelecida como um servico remoto
-public class CalculadoraImp extends UnicastRemoteObject implements Calculadora{
+public class AdministracaoImp extends UnicastRemoteObject implements Banco{
     //criar um arrayString para comecar a lista de contas  e um arrayDouble
     private ArrayList<Conta> contas = new ArrayList<>();
     
@@ -16,7 +16,7 @@ public class CalculadoraImp extends UnicastRemoteObject implements Calculadora{
     private double[] memory = new double[10];
     
     //
-    public CalculadoraImp() throws RemoteException{
+    public AdministracaoImp() throws RemoteException{
         super();
         
     }
@@ -45,10 +45,10 @@ public class CalculadoraImp extends UnicastRemoteObject implements Calculadora{
     }
     //metodo remove //metodo remove somente a agencia pode acessar
     @Override
-    public void apagaConta(int id,double saldo,String nome) throws RemoteException {
-        Conta r1=new Conta(id,saldo,nome);
+    public void apagaConta(int id) throws RemoteException {
+        
         for(Conta conta:contas){
-            if(r1.getId()==conta.getId()){
+            if(id==conta.getId()){
                 contas.remove(conta);
             }
         }
@@ -57,7 +57,7 @@ public class CalculadoraImp extends UnicastRemoteObject implements Calculadora{
     @Override
     public Conta getConta(int id) throws RemoteException {
        for(Conta conta:contas){
-        if(conta.getId()==id){
+        if(id==conta.getId()){
             return conta;
         }
        }
@@ -91,12 +91,22 @@ public class CalculadoraImp extends UnicastRemoteObject implements Calculadora{
     }
     //atua sobre o 
     @Override
-    public void store(int x, double y) throws RemoteException {
-        memory[x] = y;
+    public String nome(int id) throws RemoteException {
+       for(Conta conta:contas){
+        if(id==conta.getId()){
+            return conta.getNome();
+        }
+         }
+         return "Não encontramos a conta";
     }
     
     @Override
-    public Double load(int x) throws RemoteException {
-        return memory[x];
+    public int id(int id) throws RemoteException {
+        for(Conta conta:contas){
+            if(id==conta.getId()){
+                return conta.getId();
+            }
+        }
+        return 0;
     }
 }

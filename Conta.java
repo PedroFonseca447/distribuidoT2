@@ -14,11 +14,11 @@ public class Conta {
         return id;
     }
 
-    public double getSaldo(){
+    public Double getSaldo(){
         return saldo;
     }
 
-    public String nome(){
+    public String getNome(){
         return nome;
     }
 
