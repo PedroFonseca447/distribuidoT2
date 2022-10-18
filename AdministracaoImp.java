@@ -109,4 +109,13 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
         }
         return 0;
     }
+    @Override
+    public boolean conta(int id) throws RemoteException{
+        for(Conta conta:contas){
+            if(id==conta.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

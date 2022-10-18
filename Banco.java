@@ -11,7 +11,7 @@ public interface Banco extends Remote {
     public Conta getConta(int id) throws RemoteException;
     public Double deposito(int id,double deposito)throws RemoteException;
     public Double saque(int id,double saque)throws RemoteException;
-   
+    public boolean conta(int id) throws RemoteException;
     public int id(int id) throws RemoteException;
     public String nome(int id) throws RemoteException;
 }
