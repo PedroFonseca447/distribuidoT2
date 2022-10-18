@@ -24,7 +24,7 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
     
     
     @Override
-    public void cadastraConta(int id,double saldo,String nome) throws RemoteException {
+    public void cadastraConta(int id,double saldo,String nome,int operacao) throws RemoteException {
        Conta c1 = new Conta(id, saldo, nome);
        contas.add(c1);
      

@@ -35,7 +35,7 @@ public class ProcessoAgencia {
             int key = Integer.parseInt(in.nextLine());
            switch(key){
             case 1:
-            contadorOperacoes++;
+     
                     // if(contadorOperacoes!=contadorOperacoes){
                     //     throw new ILLEGAL_ARGUMENT_EXCEPTION("operacao ja realizada");
                     // }
@@ -50,7 +50,9 @@ public class ProcessoAgencia {
                     if(c.conta(idC)==true){
                         throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA COM ID JA EXISTENTE TENTE NOVAMENTE COM OUTRO ID");
                     }
-                    c.cadastraConta(idC, saldoC, nome);
+                    //IDEIA PARA ARRUMAR
+                    
+                    c.cadastraConta(idC, saldoC, nome,contadorOperacoes++);
                       System.out.printf("Sua conta é\n",c.getConta(idC) );
 
                         break;
