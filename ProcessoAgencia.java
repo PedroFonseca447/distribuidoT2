@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class ProcessoAgencia {
     public static void main(String[] args) {
+        int contadorOperacoes=0;
         Scanner in = new Scanner(System.in);
         try {
             //Procura pelo servico da calculadora no IP e porta definidos
@@ -37,7 +38,11 @@ public class ProcessoAgencia {
                 int key = Integer.parseInt(in.nextLine());
                 switch (key) {
                     case 1:
-                    //erro estranho!!
+                    contadorOperacoes++;
+                    if(contadorOperacoes!=contadorOperacoes){
+                        throw new ILLEGAL_ARGUMENT_EXCEPTION("operacao ja realizada");
+                    }
+                       
                     System.out.println("Digite o numero da nova conta");
                     int idC=Integer.parseInt(in.nextLine());
                     System.out.println("Digite o saldo inicial da nova conta");
@@ -49,14 +54,30 @@ public class ProcessoAgencia {
 
                         break;
                     case 2:
-                         System.out.println("Digite seu id para identificarmos sua conta");
-                        System.out.printf("Result: %.2f\n",c.getSaldo(in.nextInt()) );
+                    contadorOperacoes++;
+                    if(contadorOperacoes!=contadorOperacoes){
+                        throw new ILLEGAL_ARGUMENT_EXCEPTION("operação ja realizada");
+                    }
+                    System.out.println("Digite seu id para identificarmos sua conta");
+                    int sc =Integer.parseInt(in.nextLine());
+                    if(c.id(sc)==0){
+                        throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA INEXISTENTE");
+                    }
+                    System.out.println("Digite seu id para identificarmos sua /conta");
+                    System.out.printf("Result: %.2f\n",c.getSaldo(sc) );
+                        
                         break;
                     case 3:
                     System.out.println("Digite sua id");
                     int idS=in.nextInt();
+                    if(c.id(idS)==0){
+                        throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA INEXISTENTE");
+                    }
                     System.out.println("Digite o valor a ser sacado");
                     double valorSaque=in.nextDouble();
+                    if(valorSaque<0){
+                        throw new ILLEGAL_ARGUMENT_EXCEPTION("VALOR SACADO INVALIDO");
+                    }
                     c.saque(idS, valorSaque);
                    
                     System.out.println("Saldo em conta pos saque: "+c.getSaldo(idS));
@@ -64,8 +85,14 @@ public class ProcessoAgencia {
                     case 4:
                     System.out.println("Digite sua id");
                     int id=in.nextInt();
+                    if(c.id(id)==0){
+                        throw new ILLEGAL_ARGUMENT_EXCEPTION("ID NAO ENCONTRADO");
+                    }
                     System.out.println("Digite o valor a ser depositado");
                     double valorDeposito=in.nextDouble();
+                    if(valorDeposito<0){
+                        throw new ILLEGAL_ARGUMENT_EXCEPTION("VALOR SACADO INVALIDO");
+                    }
                     c.deposito(id, valorDeposito);
                     
                     System.out.println("Saldo em conta pos saque: "+c.getSaldo(id));
@@ -91,4 +118,5 @@ public class ProcessoAgencia {
             e.printStackTrace();
         }
     }
+  
 }
