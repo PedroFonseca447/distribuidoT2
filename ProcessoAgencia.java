@@ -187,6 +187,8 @@ public class ProcessoAgencia {
                             c.apagaConta(r);
                         } catch (Exception RemoteException) {
                             System.out.println("erro de conexao");
+                            //zerar o numero da operacao
+                            //talvez
                         }   
               
                         System.out.printf(" conta foi apagada\n");
