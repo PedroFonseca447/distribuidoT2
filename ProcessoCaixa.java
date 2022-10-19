@@ -39,8 +39,8 @@ public class ProcessoCaixa {
                         throw new ILLEGAL_ARGUMENT_EXCEPTION("FUNDOS INSUFICIENTES ");
                     }
                     c.saque(idS, valorSaque);
-                   
-                    System.out.println("Saldo em conta pos saque: "+c.getSaldo(idS));
+                    System.out.println("Saldo em conta pos saque: "+c.getSaldoS(idS));
+                    System.out.println("Numero da operacao: "+c.getOperacaoSaque());
                         break;
                     case 2:
                     System.out.println("Digite sua id");

@@ -5,7 +5,7 @@
 import java.rmi.*;
 
 public interface Banco extends Remote {
-    public void cadastraConta(int id,double saldo,String nome,int operacao) throws RemoteException;
+    public void cadastraConta(int id,double saldo,String nome) throws RemoteException;
     public Double getSaldo(int id) throws RemoteException ;
     public void apagaConta(int id) throws RemoteException;
     public Conta getConta(int id) throws RemoteException;
@@ -14,4 +14,9 @@ public interface Banco extends Remote {
     public boolean conta(int id) throws RemoteException;
     public int id(int id) throws RemoteException;
     public String nome(int id) throws RemoteException;
+    public Double getSaldoS(int id) throws RemoteException;
+    public int getContadorApagaConta() throws RemoteException;
+    public int getOperacoesCadastro() throws RemoteException;
+    public int getOperacaoSaque() throws RemoteException;
+
 }

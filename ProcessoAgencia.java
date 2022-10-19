@@ -35,7 +35,7 @@ public class ProcessoAgencia {
             int key = Integer.parseInt(in.nextLine());
            switch(key){
             case 1:
-     
+            contadorOperacoes++;
                     // if(contadorOperacoes!=contadorOperacoes){
                     //     throw new ILLEGAL_ARGUMENT_EXCEPTION("operacao ja realizada");
                     // }
@@ -50,27 +50,29 @@ public class ProcessoAgencia {
                     if(c.conta(idC)==true){
                         throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA COM ID JA EXISTENTE TENTE NOVAMENTE COM OUTRO ID");
                     }
-                    //IDEIA PARA ARRUMAR
+                  
+                    c.cadastraConta(idC, saldoC, nome);
                     
-                    c.cadastraConta(idC, saldoC, nome,contadorOperacoes++);
-                      System.out.printf("Sua conta é\n",c.getConta(idC) );
+                      System.out.printf("Operacao é: \n"+c.getOperacoesCadastro() );
 
                         break;
                    case 2:
                     contadorOperacoes++;
-                    if(contadorOperacoes!=contadorOperacoes){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("operação ja realizada");
-                    }
+                    // if(contadorOperacoes!=contadorOperacoes){
+                    //     throw new ILLEGAL_ARGUMENT_EXCEPTION("operação ja realizada");
+                    // }
                     System.out.println("Digite seu id para identificarmos sua conta");
                     int sc =Integer.parseInt(in.nextLine());
                     if(c.conta(sc)==false){
                         throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA COM ID Invalido");
                     }
                     System.out.println("Digite seu id para identificarmos sua /conta");
-                    System.out.printf("Result: %.2f\n",c.getSaldo(sc) );
+                    System.out.printf("Result: %.2f\n",c.getSaldoS(sc) );
+                    System.out.println(contadorOperacoes);
                         
                     break;
                case 3:
+
                     System.out.println("Digite sua id");
                     int idS=Integer.parseInt(in.nextLine());
                     if(c.conta(idS)==false){
@@ -85,8 +87,8 @@ public class ProcessoAgencia {
                         throw new ILLEGAL_ARGUMENT_EXCEPTION("FUNDOS INSUFICIENTES ");
                     }
                     c.saque(idS, valorSaque);
-                   
-                    System.out.println("Saldo em conta pos saque: "+c.getSaldo(idS));
+                    System.out.println("Saldo em conta pos saque: "+c.getSaldoS(idS));
+                    System.out.println("Numero da operacao: "+c.getOperacaoSaque());
                         break;
                      case 4:
                     System.out.println("Digite sua id");
@@ -102,7 +104,7 @@ public class ProcessoAgencia {
                 
                     c.deposito(id, valorDeposito);
                     
-                    System.out.println("Saldo em conta pos saque: "+c.getSaldo(id));
+                    System.out.println("Saldo em conta pos deposito: "+c.getSaldoS(id));
                         break;
                         
                     case 5:
@@ -113,13 +115,14 @@ public class ProcessoAgencia {
                     }             
                         c.apagaConta(r);
                         System.out.printf(" conta foi apagada\n");
+                        System.out.println(c.getContadorApagaConta());
                         break;
                                      
                         
                     case 6:
                         System.out.printf("Digite sua id\n");
                         int idG=Integer.parseInt(in.nextLine());
-                        System.out.println(c.nome(idG)+":"+ c.getSaldo(idG)+":"+c.id(idG));
+                        System.out.println(c.nome(idG)+":"+ c.getSaldoS(idG)+":"+c.id(idG));
                         break;
                     case 0:
                     escolha=0;

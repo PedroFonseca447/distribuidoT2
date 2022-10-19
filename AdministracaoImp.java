@@ -10,7 +10,13 @@ import java.util.ArrayList;
 public class AdministracaoImp extends UnicastRemoteObject implements Banco{
     //criar um arrayString para comecar a lista de contas  e um arrayDouble
     private ArrayList<Conta> contas = new ArrayList<>();
-    
+    public int contadorOperacoesCadastro=0;    
+    public int contadorOperacoesConfirma=0;
+    public int contadorApagaConta=0;
+    public int contadorOperacaoSaque=0;
+    public int contadorOperacaoDeposito=0;
+    public int contadorOperacoesConsultaSaldo=0;
+
     //para operações(acho mais facil e viavel)
     //ou criar um nodo e assim facilitar nossa vida talvez?
     private double[] memory = new double[10];
@@ -24,9 +30,10 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
     
     
     @Override
-    public void cadastraConta(int id,double saldo,String nome,int operacao)  throws RemoteException {
-       Conta c1 = new Conta(id, saldo, nome,operacao);
+    public void cadastraConta(int id,double saldo,String nome)  throws RemoteException {
+       Conta c1 = new Conta(id, saldo, nome);
        contas.add(c1);
+       contadorOperacoesCadastro++;
      
         
    // contas.criaConta(new Conta (id, saldo, nome));
@@ -36,7 +43,22 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
     public Double getSaldo(int id) throws RemoteException {
             for(Conta conta:contas){
                 if(conta.getId()==id){
+                    contadorOperacoesConsultaSaldo++;
                     return conta.getSaldo();
+
+                }
+             
+            }
+            return 0.0;
+    
+    }
+    @Override
+    public Double getSaldoS(int id) throws RemoteException {
+            for(Conta conta:contas){
+                if(conta.getId()==id){
+                    
+                    return conta.getSaldo();
+
                 }
              
             }
@@ -50,6 +72,7 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
         for(Conta conta:contas){
             if(id==conta.getId()){
                 contas.remove(conta);
+                contadorApagaConta++;
             }
         }
     }
@@ -71,6 +94,7 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
                 return 0.0;//gerar erro
               }
                conta.setSaldoDeposito(deposito);
+               contadorOperacaoDeposito++;
                return conta.getSaldo();
             }
         }
@@ -84,6 +108,7 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
                     return 0.0;//planejamento gerar um erro
                 }
                 conta.setSaldoSaque(saque);
+                contadorOperacaoSaque++;
                 return conta.getSaldo();
             }
         }
@@ -104,7 +129,9 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
     public int id(int id) throws RemoteException {
         for(Conta conta:contas){
             if(id==conta.getId()){
+                contadorOperacoesConfirma++;
                 return conta.getId();
+                
             }
         }
         return 0;
@@ -118,13 +145,16 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
         }
         return false;
     }
-    // @Override 
-    // public boolean getOperacao(int id)throws RemoteException{
-    //     for(Conta conta:contas){
-    //         if(id==conta.getOperacao){
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
+    @Override
+    public int getContadorApagaConta() throws RemoteException{
+        return contadorApagaConta;
+    }
+    @Override
+    public int getOperacoesCadastro() throws RemoteException{
+        return contadorOperacoesCadastro;
+    }
+    @Override
+    public int getOperacaoSaque() throws RemoteException{
+        return contadorOperacaoSaque;
+    }
 }

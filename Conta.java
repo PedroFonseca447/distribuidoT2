@@ -4,22 +4,20 @@ public class Conta implements Serializable{
     private int id;
     private double saldo;
     private String nome;
-    private int operacao;
+    
 
-    public Conta(int id,double saldo,String nome,int operacao){
+    public Conta(int id,double saldo,String nome){
         this.id=id;
         this.saldo=saldo;
         this.nome=nome;
-        this.operacao=operacao;
+        
     }
     
 
     public int getId(){
         return id;
     }
-    public int getOperacao(){
-        return operacao;
-    }
+   
 
     public Double getSaldo(){
         return saldo;
@@ -37,6 +35,6 @@ public class Conta implements Serializable{
     }
     @Override
     public String toString(){
-        return "[Conta"+this.id+"saldo: "+this.saldo+"nome: "+this.nome+""+this.operacao+"]";
+        return "[Conta"+this.id+"saldo: "+this.saldo+"nome: "+this.nome+""+"]";
     }
 }
