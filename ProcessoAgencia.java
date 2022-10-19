@@ -17,14 +17,14 @@ public class ProcessoAgencia {
     public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
         int contadorOperacoes=0;
 
+        //Procura pelo servico da calculadora no IP e porta definidos
+        Banco c = (Banco) Naming.lookup("rmi://localhost:1099/CalcService");
+
         Scanner in = new Scanner(System.in);
         System.out.println("digite 1 para iniciar");
-         int escolha=Integer.parseInt(in.nextLine());
-
-        while(escolha==1) {
-            //Procura pelo servico da calculadora no IP e porta definidos
-            Banco c = (Banco) Naming.lookup("rmi://localhost:1099/CalcService");
-          
+        int escolha=Integer.parseInt(in.nextLine());
+        
+        while(escolha==1) {          
             System.out.println("1 - cria conta");
             System.out.println("2 - consulta saldo");
             System.out.println("3 - saque");
@@ -46,14 +46,27 @@ public class ProcessoAgencia {
                     double saldoC= Double.parseDouble(in.nextLine());
                     System.out.println("Digite o nome vinculado a conta");
                     String nome = in.nextLine();
-                  
+                        try{
                     if(c.conta(idC)==true){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA COM ID JA EXISTENTE TENTE NOVAMENTE COM OUTRO ID");
+                        System.out.println("CONTA COM ID JA EXISTENTE TENTE NOVAMENTE COM OUTRO ID");
+                        continue;
+                    }}catch(Exception RemoteException){
+                        System.out.println("erro de conexao");
                     }
                   
-                    c.cadastraConta(idC, saldoC, nome);
-                    
-                      System.out.printf("Operacao é: \n"+c.getOperacoesCadastro() );
+                    try {
+                        c.cadastraConta(idC, saldoC, nome);
+                    } catch (Exception RemoteException) {
+                        System.out.println("erro de conexao");
+                        
+                    }
+                   
+                    try {
+                        System.out.println("Operacao é: \n"+c.getOperacoesCadastro() );
+                    } catch (Exception RemoteException) {
+                        System.out.println("erro de conexao");
+                    }
+                      
 
                         break;
                    case 2:
@@ -63,11 +76,21 @@ public class ProcessoAgencia {
                     // }
                     System.out.println("Digite seu id para identificarmos sua conta");
                     int sc =Integer.parseInt(in.nextLine());
+                    try{
                     if(c.conta(sc)==false){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA COM ID Invalido");
+                        System.out.println("CONTA COM ID Invalido");
+                        continue;
                     }
+                }catch(Exception remoException){
+                    System.out.println("erro de conexao");
+                }
                     System.out.println("Digite seu id para identificarmos sua /conta");
-                    System.out.printf("Result: %.2f\n",c.getSaldoS(sc) );
+                    try {
+                        System.out.printf("Result: %.2f\n",c.getSaldoS(sc) );
+                    } catch (Exception e) {
+                        System.out.println("erro de conexao");
+                    }
+                    
                     System.out.println(contadorOperacoes);
                         
                     break;
@@ -75,54 +98,115 @@ public class ProcessoAgencia {
 
                     System.out.println("Digite sua id");
                     int idS=Integer.parseInt(in.nextLine());
+                    try{
                     if(c.conta(idS)==false){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA INEXISTENTE");
+                        System.out.println("CONTA INEXISTENTE");
+                        continue;
                     }
+                }catch(Exception remoException){
+                    System.out.println("erro de conexao");
+                }
                     System.out.println("Digite o valor a ser sacado");
                     double valorSaque=Double.parseDouble(in.nextLine());
+                    try{
                     if(valorSaque<0){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("VALOR SACADO INVALIDO");
+                       System.out.println("VALOR SACADO INVALIDO");
+                       continue;
                     }
+                    }catch(Exception remoException){
+                        System.out.println("erro de conexao");
+                    }
+                    try{
                     if(valorSaque>c.getSaldo(idS)){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("FUNDOS INSUFICIENTES ");
+                       System.out.println("FUNDOS INSUFICIENTES ");
                     }
+                }catch(Exception remoException){
+                    System.out.println("erro de conexao");
+                }
+                    try{
                     c.saque(idS, valorSaque);
-                    System.out.println("Saldo em conta pos saque: "+c.getSaldoS(idS));
-                    System.out.println("Numero da operacao: "+c.getOperacaoSaque());
+                    }catch(Exception remoException){
+                        System.out.println("erro de conexao");
+                    }
+                    try {
+                        System.out.println("Saldo em conta pos saque: "+c.getSaldoS(idS));
+                    } catch (Exception remoException) {
+                        System.out.println("erro de conexao");
+                    }
+                    try {
+                        System.out.println("Numero da operacao: "+c.getOperacaoSaque());
+                    } catch (Exception remoException) {
+                        System.out.println("erro de conexao");
+                    }
+                   
                         break;
                      case 4:
                     System.out.println("Digite sua id");
                     int id=Integer.parseInt(in.nextLine());
+                    try{
                     if(c.conta(id)==false){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA INEXISTENTE");
+                        System.out.println("CONTA INEXISTENTE");
+                        continue;
                     }
+                }catch(Exception remoException){
+                    System.out.println("erro de conexao");
+                    
+                }
                     System.out.println("Digite o valor a ser depositado");
                     double valorDeposito=Double.parseDouble(in.nextLine());
                     if(valorDeposito<0){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("VALOR INSERIDO INVALIDO");
+                       System.out.println("VALOR INSERIDO INVALIDO");
+                       continue;
                     }
-                
-                    c.deposito(id, valorDeposito);
-                    
-                    System.out.println("Saldo em conta pos deposito: "+c.getSaldoS(id));
+                    try {
+                        c.deposito(id, valorDeposito);
+                    } catch (Exception RemoteException) {
+                        System.out.println("erro de conexao");
+                    }
+           
+                    try {
+                        System.out.println("Saldo em conta pos deposito: "+c.getSaldoS(id));
+                    } catch (Exception e) {
+                        System.out.println("erro de conexao");
+                    }
+                   
                         break;
                         
                     case 5:
                     System.out.println("digite o id da conta que deseja apagar");
                     int r = Integer.parseInt(in.nextLine());
-                    if(c.conta(r)==false){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA INEXISTENTE");
-                    }             
-                        c.apagaConta(r);
+                    try {
+                        if(c.conta(r)==false){
+                            System.out.println("CONTA INEXISTENTE");
+                            continue;
+                         }  
+                    } catch (Exception RemoteException) {
+                        System.out.println("erro de conexao");
+                    }
+                        try {
+                            c.apagaConta(r);
+                        } catch (Exception RemoteException) {
+                            System.out.println("erro de conexao");
+                        }   
+              
                         System.out.printf(" conta foi apagada\n");
+                        try{
                         System.out.println(c.getContadorApagaConta());
+                        }catch(Exception RemoteException){
+                            System.out.println("erro de conexao");
+                        }
                         break;
                                      
                         
                     case 6:
                         System.out.printf("Digite sua id\n");
                         int idG=Integer.parseInt(in.nextLine());
-                        System.out.println(c.nome(idG)+":"+ c.getSaldoS(idG)+":"+c.id(idG));
+                        try {
+                            System.out.println(c.nome(idG)+":"+ c.getSaldoS(idG)+":"+c.id(idG));
+                        } catch (Exception e) {
+                            System.out.println("erro de conexao");
+                        }
+                       
                         break;
                     case 0:
                     escolha=0;
