@@ -1,5 +1,5 @@
 /**
-    Interface Calculadora com assinatura dos métodos 
+    Interface do banco com assinatura dos métodos 
  */
 
 import java.rmi.*;
@@ -15,7 +15,7 @@ public interface Banco extends Remote {
     public int id(int id) throws RemoteException;
     public String nome(int id) throws RemoteException;
     public Double getSaldoS(int id) throws RemoteException;
-    public int getContadorApagaConta() throws RemoteException;
+    public int getContadorOperacaoDeposito() throws RemoteException;
     public int getOperacoesCadastro() throws RemoteException;
     public int getOperacaoSaque() throws RemoteException;
 

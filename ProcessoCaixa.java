@@ -25,38 +25,99 @@ public class ProcessoCaixa {
             int key = Integer.parseInt(in.nextLine());
                 switch (key) {
                     case 1:
+                    try {
+                        if (c.getOperacaoSaque() == c.getOperacaoSaque() + 1) {
+                            System.out.println("operação perdida");
+                            continue;
+                        }
+                    } catch (RemoteException remoException) {
+                        System.out.println("erro de conexão");
+                    }
                     System.out.println("Digite sua id");
-                    int idS=Integer.parseInt(in.nextLine());
-                    if(c.conta(idS)==false){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA INEXISTENTE");
+                    int idS = Integer.parseInt(in.nextLine());
+                    try {
+                        if (c.conta(idS) == false) {
+                            System.out.println("CONTA INEXISTENTE");
+                            continue;
+                        }
+                    } catch (RemoteException remoException) {
+                        System.out.println("erro de conexao");
                     }
                     System.out.println("Digite o valor a ser sacado");
-                    double valorSaque=Double.parseDouble(in.nextLine());
-                    if(valorSaque<0){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("VALOR SACADO INVALIDO");
+                    double valorSaque = Double.parseDouble(in.nextLine());
+                    try {
+                        if (valorSaque < 0) {
+                            System.out.println("VALOR SACADO INVALIDO");
+                            continue;
+                        }
+                    } catch (Exception remoException) {
+                        System.out.println("erro de conexao");
                     }
-                    if(valorSaque>c.getSaldo(idS)){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("FUNDOS INSUFICIENTES ");
+                    try {
+                        if (valorSaque > c.getSaldo(idS)) {
+                            System.out.println("FUNDOS INSUFICIENTES ");
+                        }
+                    } catch (RemoteException remoException) {
+                        System.out.println("erro de conexao");
                     }
-                    c.saque(idS, valorSaque);
-                    System.out.println("Saldo em conta pos saque: "+c.getSaldoS(idS));
-                    System.out.println("Numero da operacao: "+c.getOperacaoSaque());
-                        break;
+                    try {
+                        c.saque(idS, valorSaque);
+                    } catch (RemoteException remoException) {
+                        System.out.println("erro de conexao");
+                    }
+                    try {
+                        System.out.println("Saldo em conta pos saque: " + c.getSaldoS(idS));
+                    } catch (RemoteException remoException) {
+                        System.out.println("erro de conexao");
+                    }
+                    try {
+                        System.out.println("Numero da operacao: " + c.getOperacaoSaque());
+                    } catch (RemoteException remoException) {
+                        System.out.println("erro de conexao");
+                    }
+
+                    break;
                     case 2:
+                      // trata a idempotencia
+                      try {
+                        if (c.getContadorOperacaoDeposito() == c.getContadorOperacaoDeposito() + 1) {
+                            System.out.println("operação perdida");
+                            continue;
+                        }
+                    } catch (RemoteException remoException) {
+                        System.out.println("erro de conexão");
+                    }
                     System.out.println("Digite sua id");
-                    int id=Integer.parseInt(in.nextLine());
-                    if(c.conta(id)==false){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("CONTA INEXISTENTE");
+                    int id = Integer.parseInt(in.nextLine());
+                    try {
+                        if (c.conta(id) == false) {
+                            System.out.println("CONTA INEXISTENTE");
+                            continue;
+                        }
+                    } catch (RemoteException remoException) {
+                        System.out.println("erro de conexao");
+
                     }
                     System.out.println("Digite o valor a ser depositado");
-                    double valorDeposito=Double.parseDouble(in.nextLine());
-                    if(valorDeposito<0){
-                        throw new ILLEGAL_ARGUMENT_EXCEPTION("VALOR INSERIDO INVALIDO");
+                    double valorDeposito = Double.parseDouble(in.nextLine());
+                    if (valorDeposito < 0) {
+                        System.out.println("VALOR INSERIDO INVALIDO");
+                        continue;
                     }
-                
-                    c.deposito(id, valorDeposito);
-                    System.out.println("Saldo em conta pos saque: "+c.getSaldo(id));
-                        break;
+                    try {
+                        c.deposito(id, valorDeposito);// numero de exceção de rodar 2 vezes o mesmo codigo e
+                        // verificar o erro
+                    } catch (RemoteException remoException) {// cria um metodo
+                        System.out.println("erro de conexao");
+                    }
+
+                    try {
+                        System.out.println("Saldo em conta pos deposito: " + c.getSaldoS(id));
+                    } catch (RemoteException remoException) {
+                        System.out.println("erro de conexao");
+                    }
+
+                    break;
                     case 3:
                     System.out.printf("Digite sua id\n");
                     int idG=Integer.parseInt(in.nextLine());

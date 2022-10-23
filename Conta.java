@@ -1,5 +1,5 @@
 import java.io.Serializable;
-
+// metodo de estruturação de objetos para a lista e criação de contas
 public class Conta implements Serializable{
     private int id;
     private double saldo;

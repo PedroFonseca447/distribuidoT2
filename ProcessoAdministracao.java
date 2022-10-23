@@ -1,5 +1,6 @@
 /**
- *  Servidor calculadora
+ *  Servidor branco
+ * processoAdministração+adminstraçãoImp fizeram o serviço e rede e armazenamento do sistema criado
  */
 
 import java.rmi.Naming;
@@ -16,7 +17,7 @@ public class ProcessoAdministracao {
             LocateRegistry.createRegistry(1099);
             //Cria o objeto que implementa os metodos que serao servidos
             Banco c = new AdministracaoImp();
-            //Coloca na porta registrada o servico da calculadora
+            //Coloca na porta registrada o servico do banco
             Naming.bind("CalcService", (Remote) c);
             System.out.println("Conexao estabelecida.");
 

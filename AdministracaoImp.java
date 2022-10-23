@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class AdministracaoImp extends UnicastRemoteObject implements Banco{
     //criar um arrayString para comecar a lista de contas  e um arrayDouble
     private ArrayList<Conta> contas = new ArrayList<>();
+    //CONTADOR DE OPERAÇÕES PARA EVITAR IDEMPOTENCIA
     public int contadorOperacoesCadastro=0;    
     public int contadorOperacoesConfirma=0;
     public int contadorApagaConta=0;
@@ -17,8 +18,7 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
     public int contadorOperacaoDeposito=0;
     public int contadorOperacoesConsultaSaldo=0;
 
-    //para operações(acho mais facil e viavel)
-    //ou criar um nodo e assim facilitar nossa vida talvez?
+ 
     private double[] memory = new double[10];
     
     //
@@ -146,8 +146,8 @@ public class AdministracaoImp extends UnicastRemoteObject implements Banco{
         return false;
     }
     @Override
-    public int getContadorApagaConta() throws RemoteException{
-        return contadorApagaConta;
+    public int getContadorOperacaoDeposito() throws RemoteException{
+        return contadorOperacaoDeposito;
     }
     @Override
     public int getOperacoesCadastro() throws RemoteException{
