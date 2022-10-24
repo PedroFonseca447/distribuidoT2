@@ -20,11 +20,11 @@ public class ProcessoAgencia {
 
         // Procura pelo servico da calculadora no IP e porta definidos
         Banco c = (Banco) Naming.lookup("rmi://localhost:1099/CalcService");
-
+      
         Scanner in = new Scanner(System.in);
         System.out.println("digite 1 para iniciar");
         int escolha = Integer.parseInt(in.nextLine());
-
+  
         while (escolha == 1) {
             System.out.println("1 - cria conta");
             System.out.println("2 - consulta saldo");
@@ -70,7 +70,7 @@ public class ProcessoAgencia {
                     }
 
                     try {
-                        System.out.println("Operacao é: \n" + c.getOperacoesCadastro());
+                        System.out.println("Operacao é de número: \n" + c.getOperacoesCadastro());
                     } catch (RemoteException remoException) {
                         System.out.println("erro de conexao");
                     }
@@ -90,9 +90,9 @@ public class ProcessoAgencia {
                     } catch (RemoteException remoException) {
                         System.out.println("erro de conexao");
                     }
-                    System.out.println("Digite seu id para identificarmos sua /conta");
+                   
                     try {
-                        System.out.printf("Result: %.2f\n", c.getSaldoS(sc));
+                        System.out.printf("R$:\n", c.getSaldoS(sc));
                     } catch (RemoteException remoException) {
                         System.out.println("erro de conexao");
                     }
@@ -140,7 +140,7 @@ public class ProcessoAgencia {
                         System.out.println("erro de conexao");
                     }
                     try {
-                        System.out.println("Saldo em conta pos saque: " + c.getSaldoS(idS));
+                        System.out.println("Saldo em conta pos saque R$: " + c.getSaldoS(idS));
                     } catch (RemoteException remoException) {
                         System.out.println("erro de conexao");
                     }
@@ -186,7 +186,7 @@ public class ProcessoAgencia {
                     }
 
                     try {
-                        System.out.println("Saldo em conta pos deposito: " + c.getSaldoS(id));
+                        System.out.println("Saldo em conta pos deposito R$: " + c.getSaldoS(id));
                     } catch (RemoteException remoException) {
                         System.out.println("erro de conexao");
                     }
@@ -208,14 +208,15 @@ public class ProcessoAgencia {
                         c.apagaConta(r);
                     } catch (RemoteException remoException) {
                         System.out.println("erro de conexao");
-                        // zerar o numero da operacao
-                        // talvez
-                    }
-
-                    System.out.printf(" conta foi apagada\n");
                    
+                    }
+                
+
+                    System.out.println(" conta foi apagada");
+                 break;
 
                 case 6:
+                
                     System.out.printf("Digite sua id\n");
                     int idG = Integer.parseInt(in.nextLine());
                     try {

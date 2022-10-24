@@ -25,7 +25,7 @@ public class ProcessoCaixa {
             int key = Integer.parseInt(in.nextLine());
                 switch (key) {
                     case 1:
-                    try {
+                    try {//exemplo de resolução de idempotencia
                         if (c.getOperacaoSaque() == c.getOperacaoSaque() + 1) {
                             System.out.println("operação perdida");
                             continue;
