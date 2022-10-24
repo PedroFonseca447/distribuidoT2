@@ -66,7 +66,7 @@ public class ProcessoCaixa {
                         System.out.println("erro de conexao");
                     }
                     try {
-                        System.out.println("Saldo em conta pos saque: " + c.getSaldoS(idS));
+                        System.out.println("Saldo em conta pos saque R$: " + c.getSaldoS(idS));
                     } catch (RemoteException remoException) {
                         System.out.println("erro de conexao");
                     }
@@ -112,7 +112,7 @@ public class ProcessoCaixa {
                     }
 
                     try {
-                        System.out.println("Saldo em conta pos deposito: " + c.getSaldoS(id));
+                        System.out.println("Saldo em conta pos deposito R$: " + c.getSaldoS(id));
                     } catch (RemoteException remoException) {
                         System.out.println("erro de conexao");
                     }
